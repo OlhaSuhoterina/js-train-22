@@ -4,11 +4,30 @@
 // Клас Drink представляє основний напій, який можна приготувати.
 // Цей клас містить базову вартість напою (price=10) та його ім'я (name="Чай").
 class Drink {
+  name = "Чай";
+  price = 10;
+  prepare() {
+    console.log(`Приготування ${this.name}`);
+  }
   // Метод prepare() виводить в консоль рядок "Приготування {назва напою}"
 }
 
 // Клас HoneyDecorator є декоратором, який додає мед до напою.
 class HoneyDecorator {
+  constructor(drink, amount) {
+    this.drink = drink;
+    this.amount = amount;
+  }
+  get name() {
+    return `${this.drink.name} з ${this.amount} г меду`;
+  }
+  get price() {
+    const honeyPrice = 0.5;
+    return this.drink.price + honeyPrice * this.amount;
+  }
+  prepare() {
+    console.log(`Приготування ${this.name} з медом`);
+  }
   // Конструктор приймає в якості параметрів базовий напій (drink) та кількість меду (amount), яку треба додати.
   // Getter для name повертає рядок `${this.drink.name} з ${this.amount} г меду`.
   // Getter для price розраховує загальну вартість напою, враховуючи базову вартість напою

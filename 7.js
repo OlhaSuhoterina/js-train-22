@@ -2,6 +2,17 @@
 
 // Клас Participant представляє користувача, який може відправляти повідомлення.
 class Participant {
+  constructor(alias, communicator) {
+    this.alias = alias;
+    this.communicator = communicator;
+  }
+  dispatchMessage(text) {
+    const preparedMessage = this.prepareMessage(text);
+    this.text.dispatchMessage(preparedMessage);
+  }
+  prepareMessage(text) {
+    return `[${this.alias}]: ${text}`;
+  }
   // Конструктор приймає два параметри: alias, communicator
   // Метод dispatchMessage відправляє повідомлення за допомогою відповідного засобу комунікації.
   // Він приймає один параметр - text - текст повідомлення, яке потрібно відправити.
@@ -10,12 +21,18 @@ class Participant {
 
 // Клас SMSCommunicator відповідає за відправку повідомлень через SMS.
 class SMSCommunicator {
+  static dispatchMessage(message) {
+    console.log(`Відправлено SMS: ${message}`);
+  }
   // Статичний метод transmit відправляє SMS.
   // Він приймає один параметр - message - текст повідомлення, яке потрібно відправити, та повертає `Відправлено SMS: ${message}`.
 }
 
 // Клас EmailCommunicator відповідає за відправку повідомлень через Email.
 class EmailCommunicator {
+  static dispatchMessage(message) {
+    console.log(`Відправлено Email: ${message}`);
+  }
   // Статичний метод transmit відправляє Email.
   // Він приймає один параметр - message - текст повідомлення, яке потрібно відправити та повертає `Відправлено Email: ${message}`.
 }

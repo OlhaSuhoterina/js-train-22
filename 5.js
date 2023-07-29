@@ -2,6 +2,20 @@
 
 // Клас Writer відповідає за роботу з текстом.
 class Writer {
+  #content = "";
+  set content(content) {
+    this.#content = newContent;
+    this.#store();
+  }
+  get content() {
+    return this.#content;
+  }
+  #store() {
+    Version.create(this.content);
+  }
+  restore() {
+    this.#content = Version.restore().content;
+  }
   // Властивість #content представляє поточний текст. Вона ініціалізується порожнім рядком.
   // Сетер для властивості content. Він приймає значення newContent (новий текст),
   // який потрібно встановити як поточний текст. Кожен раз, коли присвоюється нове значення,
@@ -15,6 +29,18 @@ class Writer {
 
 // Клас Version відповідає за створення та зберігання версій тексту.
 class Version {
+  constructor(content) {
+    this.content = content;
+  }
+  static #versions = [];
+  static create(content) {
+    console.log(content);
+    this.#versions.push(new Version(content));
+  }
+  static restore() {
+    this.#versions.pop();
+    return this.#versions[this.#versions.length - 1];
+  }
   // В конструкторі класу Version приймається аргумент content та встановлює його.
   // Це вхідний аргумент, який представляє теку збережену версію тексту.
   // Властивість #versions це приватний статичний масив, пустий за замовчуванням, що зберігає всі створені версії.

@@ -2,12 +2,20 @@
 // передані аргументи та вирішує який клас повинен мати об’єкт при створенні
 // Клас Book описує книгу в магазині
 class Book {
+  constructor({ title, author, coverColor }) {
+    this.title = title;
+    this.author = author;
+    this.coverColor = coverColor;
+  }
   /**
    * Конструктор Book приймає об'єкт з параметрами
    * title - назва книги
    * author - автор книги
    * coverColor - колір обкладинки книги
    */
+  describe() {
+    return `Книга: ${this.title}, автор: ${this.author}, колір обкладинки: ${this.coverColor}`;
+  }
   /**
    * Метод describe генерує опис книги
    *  Повертає рядок у форматі: "Книга: '{назва}', автор: '{автор}', колір обкладинки: '{колір}'"
@@ -18,6 +26,14 @@ class Book {
  * Клас AudioBook описує аудіокнигу в магазині
  */
 class AudioBook {
+  constructor({ title, author, audioLength }) {
+    this.title = title;
+    this.author = author;
+    this.audioLength = audioLength;
+  }
+  describe() {
+    return `Аудіокнига:: ${this.title}, автор: ${this.author}, тривалість: ${this.audioLength}`;
+  }
   /**
    * Конструктор AudioBook приймає об'єкт з параметрами
    * title - назва книги
@@ -25,6 +41,7 @@ class AudioBook {
    * audioLength - тривалість аудіокниги
    */
   /**
+   * 
      * Метод describe генерує опис аудіокниги
        Повертає рядок у форматі: "Аудіокнига: '{назва}', автор: '{автор}', тривалість: '{тривалість}'"
      */
@@ -35,6 +52,20 @@ class AudioBook {
  */
 
 class ProductFactory {
+  static TYPE = {
+    BOOK: "book",
+    AUDIOBOOK: "audiobook",
+  };
+  static createProduct(type, options) {
+    switch (type) {
+      case this.TYPE.BOOK:
+        return new Book(options);
+      case this.TYPE.AUDIOBOOK:
+        return new AudioBook(options);
+      default:
+        throw new Error(`Такого типу продукту не існує: ${type}`);
+    }
+  }
   // TYPE - статична властивість, що визначає типи продуктів, які можуть бути створені.
   // {
   //   BOOK: "book",
